@@ -3,14 +3,17 @@ package com.nishassoni.user;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 
 @Entity(name="user_details")
 public class User {
@@ -24,10 +27,10 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	@Size(min = 2, message="Name should have atleast 2 character")
-	//@JsonProperty("user_name")
+	@JsonProperty("user_name")
 	private String name;
 	@Past(message = "Birth Date should be Past")
-	//@JsonProperty("birth_date")
+	@JsonProperty("birth_date")
 	private LocalDate birthDate;
 	
 	@OneToMany(mappedBy = "user")

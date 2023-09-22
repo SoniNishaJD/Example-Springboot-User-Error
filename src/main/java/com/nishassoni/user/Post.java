@@ -1,12 +1,15 @@
 package com.nishassoni.user;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+
 
 @Entity(name="posts")
 public class Post {
@@ -15,6 +18,7 @@ public class Post {
 	@GeneratedValue
 	private Integer id;
 	
+	@Size(min = 10)
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -36,6 +40,16 @@ public class Post {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Post(Integer id, String description) {
 		super();
@@ -46,12 +60,18 @@ public class Post {
 	public Post() {
 		super();
 	}
+	
+	public Post(Integer id, @Size(min = 10) String description, User user) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", description=" + description + "]";
+		return "Post [id=" + id + ", description=" + description + ", user=" + user + "]";
 	}
-	
-	
 
+	
 }
